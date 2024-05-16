@@ -24,6 +24,11 @@ type SendNotificationRequest struct {
 	XApiKey         string `json:"x_api_key"`
 }
 
+type YandexCloudFunctionResponse struct {
+	Body       any `json:"body"`
+	StatusCode int `json:"statusCode"`
+}
+
 func YandexCloudFunctionHandler(ctx context.Context, req *SendNotificationRequest) ([]byte, error) {
 	slog.Info("function is booting up", slog.Any("request", req))
 
@@ -87,11 +92,6 @@ func YandexCloudFunctionHandler(ctx context.Context, req *SendNotificationReques
 	return respondJSON(http.StatusOK, JSON{
 		"result": "ok",
 	})
-}
-
-type YandexCloudFunctionResponse struct {
-	Body       any `json:"body"`
-	StatusCode int `json:"statusCode"`
 }
 
 func respondJSON(statusCode int, data JSON) ([]byte, error) {
